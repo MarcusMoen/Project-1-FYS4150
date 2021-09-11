@@ -27,56 +27,37 @@ int main()
   myfile.close();
 
 
-  //Problem 6a:
-  //Need to define a first matrix mat
-
-  double mat[n-2][n-2];
-
+  //Problem 7
+  double a[n-2];
+  double b[n-2];
+  double c[n-2];
   double g[n-2];
   for(int i=0; i<=n-3; i++){
-    for(int j=0; j<=n-3; j++){
-      if(i==j){
-        mat[i][j] = 2;
-      }
-      else if(i==j-1){
-        mat[i][j] = -1;
-      }
-      else if(i==j+1){
-        mat[i][j] = -1;
-      }
-    }
     g[i] = 100*exp(-10*x[i+1])*pow(1./n,2);
+    a[i] = -1;
+    b[i] = 2;
+    c[i] = -1;
     //std::cout << i << ' ' << g[i] << ' ' << x[i] << "\n";
   }
 
-  double A_new[n-2][n-2];
-  A_new[0][0] = mat[0][0];
+  double b_update[n-2];
+  b_update[0] = b[0];
   for(int i=1; i<=n-3; i++){
-    for(int j=1; j<=n-3; j++){
-      if(i<n-2 && j==i+1){
-        A_new[i][j] = mat[i][j];
-      }
-      else if(i==j){
-        A_new[i][j] = mat[i][j]-(mat[i-1][j]/A_new[i-1][j-1])*mat[i][j-1];
-        std::cout << 'A'  << ' '<< i << ' ' << j << ' '<< A_new[i][j] << "\n";}
-    }
-      g[i] = g[i]-(mat[i][i-1]/A_new[i-1][i-1])*g[i-1];
-      std::cout << 'g' << ' ' << mat[i][i-1] << ' ' << g[i] << ' ' << "Dette er g" << ' ' << g[i] << "\n";
+      b_update[i] = b[i] - (a[i]/b_update[i-1])*c[i];
+      g[i] = g[i]-(a[i]/b_update[i-1])*g[i-1];
+      //std::cout << 'g' << ' ' << mat[i][i-1] << ' ' << g[i] << ' ' << "Dette er g" << ' ' << g[i] << "\n";
   }
 
 
   double v[n-2];
+  v[n-3] = g[n-3]/b_update[n-3];
   myfile.open("test.txt");
-  for(int i=n-3; i>=0; i--){
-    if(i==n-3){
-      v[i] = g[i]/A_new[i][i];
-    }
-    else{
-      v[i] = (g[i] - A_new[i][i+1]*v[i+1])/A_new[i][i];
-      std::cout << "b tilda" << ' ' << A_new[i][i] << '\n';
-      std::cout << "v_i+1" << ' ' << v[i+1] << '\n';
-      std::cout << "g tilda" << ' ' << g[i] << '\n';
-    }
+  for(int i=n-4; i>=0; i--){
+    v[i] = (g[i] - c[i]*v[i+1])/b_update[i];
+    //std::cout << "b tilda" << ' ' << A_new[i][i] << '\n';
+    std::cout << "v_i+1" << ' ' << v[i+1] << '\n';
+    std::cout << "g tilda" << ' ' << g[i] << '\n';
+
 
     std::cout.precision(4);
     myfile << std::scientific << x[i+1] << " " << std::scientific << v[i] << "\n";
@@ -87,6 +68,11 @@ int main()
   std::cout << '\n';
   std::cout << u[3];
   std::cout << '\n';
+
+
+  //Problem 9b
+
+
 
 
   return 0;
