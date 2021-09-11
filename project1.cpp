@@ -51,7 +51,9 @@ int main()
 
   double v[n-2];
   v[n-3] = g[n-3]/b_update[n-3];
-  myfile.open("test.txt");
+  myfile.open("approx_with_" + std::to_string(n) + "_xes.txt");
+  myfile << std::scientific << x[n-1] << " " << std::scientific << 0 << "\n";
+  myfile << std::scientific << x[n-2] << " " << std::scientific << v[n-3] << "\n";
   for(int i=n-4; i>=0; i--){
     v[i] = (g[i] - c[i]*v[i+1])/b_update[i];
     //std::cout << "b tilda" << ' ' << A_new[i][i] << '\n';
@@ -63,6 +65,7 @@ int main()
     myfile << std::scientific << x[i+1] << " " << std::scientific << v[i] << "\n";
     std::cout << i << ' ' << v[i] << "\n";
   }
+  myfile << std::scientific << x[0] << " " << std::scientific << 0 << "\n";
 
   std::cout << v[2];
   std::cout << '\n';
