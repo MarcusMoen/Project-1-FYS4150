@@ -10,7 +10,7 @@ df = pd.read_csv('data.txt', sep=' ', header=None)
 x = df[0].to_numpy()
 u = df[1].to_numpy()
 
-df = pd.read_csv('test.txt', sep=' ', header=None)
+df = pd.read_csv('approx_with_100_xes.txt', sep=' ', header=None)
 x2 = df[0].to_numpy()
 v = df[1].to_numpy()
 
@@ -20,6 +20,7 @@ plt.grid()
 plt.xlabel('x')
 plt.ylabel('u(x)')
 plt.title('Poisson equation')
+plt.legend(['Real solution', 'Approximated solution with n points'], bbox_to_anchor = (1.05, 0.6))
 plt.savefig('poisson1.pdf', dpi=900)
 
 
