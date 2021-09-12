@@ -11,7 +11,7 @@ int main()
   // Print a message to screen
 
   // Problem 2:
-  int n = 1000;
+  int n = 10000;
   double k = 0.0;
   double x[n];
   double u[n];
