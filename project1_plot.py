@@ -57,7 +57,7 @@ ax[1][1].plot(x4,v4)
 ax[1][1].grid()
 ax[1][1].set_xlabel('x')
 ax[1][1].set_ylabel('u(x)')
-ax[1][1].legend(['Real solution', 'Approximated solution \n with 1000 points'] ,bbox_to_anchor = (0.57, 1), fontsize=12)
+ax[1][1].legend(['Real solution', 'Approximated solution \n with 10000 points'] ,bbox_to_anchor = (0.57, 1), fontsize=12)
 
 plt.savefig('poisson.pdf', dpi=900)
 plt.show()
