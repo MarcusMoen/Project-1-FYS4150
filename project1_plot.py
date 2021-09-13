@@ -5,7 +5,7 @@ import matplotlib
 import math
 
 matplotlib.rcParams.update({'font.size':14})
-"""
+
 df = pd.read_csv('data_with_10_xes.txt', sep=' ', header=None)
 u1 = df[1].to_numpy()
 
@@ -33,7 +33,7 @@ v3 = np.flip(df[1].to_numpy())
 df = pd.read_csv('approx_with_10000_xes.txt', sep=' ', header=None)
 x4 = np.flip(df[0].to_numpy())
 v4 = np.flip(df[1].to_numpy())
-
+"""
 fig, ax = plt.subplots(2,2, figsize=(14,8))
 
 plt.suptitle('Poisson equation', fontsize=18)
@@ -70,28 +70,21 @@ ax[1][1].legend(['Real solution', 'Approximated solution \n with 10000 points'] 
 
 plt.savefig('poisson.pdf', dpi=900)
 plt.show()
+"""
 
 
 #Task 8a
 def absolute_log_error(u, v):
-    abs_error = [0]
-    for i in range(len(u)-1):
-        if u[i+1]-v[i+1] == 0:
-            abs_error.append(0)
-        else:
-            abs_error.append(math.log10(abs(u[i+1]-v[i+1])))
+    abs_error = []
+    for i in range(len(u)):
+        abs_error.append(np.log10(abs(u[i]-v[i])))
     return abs_error
-
-print(absolute_log_error(u1,v1))
 
 #Task 8b
 def relative_log_error(u, v):
-    rel_error = [0]
-    for i in range(len(u)-1):
-        if u[i+1]-v[i+1] == 0:
-            rel_error.append(0)
-        else:
-            rel_error.append(math.log10(abs((u[i+1]-v[i+1])/u[i+1])))
+    rel_error = []
+    for i in range(len(u)):
+        rel_error.append(np.log10(abs((u[i]-v[i])/u[i])))
     return rel_error
 
 
@@ -123,13 +116,12 @@ ax[1].legend()
 fig.tight_layout()
 plt.savefig('error.pdf', dpi=900)
 plt.show()
-"""
 
 
 
 
 #Problem 10 plots
-
+"""
 df = pd.read_csv('time10n.txt', sep=' ', header=None)
 gen10 = df[0].to_numpy()
 spe10 = df[1].to_numpy()
@@ -154,7 +146,7 @@ df = pd.read_csv('time100000n.txt', sep=' ', header=None)
 gen100000 = df[0].to_numpy()
 spe100000 = df[1].to_numpy()
 mean100000 = [np.mean(gen100000),np.mean(spe100000)]
-
+"""
 """
 ns = [10,100,1000,10000,100000]
 
@@ -178,7 +170,7 @@ ax[1].legend()
 plt.savefig('mean_times.pdf',dpi=900)
 plt.show()
 """
-
+"""
 
 it = np.linspace(0,50, 50)
 
@@ -210,3 +202,5 @@ plotting_times(gen100,spe100,100)
 plotting_times(gen1000,spe1000,1000)
 plotting_times(gen10000,spe10000,10000)
 plotting_times(gen100000,spe100000,100000)
+
+"""
