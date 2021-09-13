@@ -3,6 +3,7 @@
 #include <iomanip>
 #include <math.h>
 #include <vector>
+#include <chrono>
 
 using std::vector;
 
@@ -10,7 +11,7 @@ int main()
 {
 
   // Problem 2:
-  int n = 10; //The number of steps
+  int n = 100000; //The number of steps
   double k = 0.0;
   double step = 1./n; //Step length
   double x[n+1]; //Storing the x-values
@@ -45,7 +46,7 @@ int main()
     c[i] = -1;
   }
 
-
+  auto t1 = std::chrono::high_resolution_clock::now();
   double b_update[n-1];
   b_update[0] = b[0];
   //Update the main-diagonal values and the g-values
@@ -69,31 +70,36 @@ int main()
   }
   myfile << std::scientific << x[0] << " " << std::scientific << 0 << "\n";
   myfile.close();
+  auto t2 = std::chrono::high_resolution_clock::now();
+  double duration_seconds = std::chrono::duration<double>(t2 - t1).count();
+  std::cout << "The general algorithm takes " << duration_seconds << " seconds for n=" << n << "\n";
 
   //Problem 9c
+  auto t3 = std::chrono::high_resolution_clock::now();
   //Update the g-values
   for(int i=1; i<=n-2; i++){
-    double b_tilde = 1.0*i/(i+1);
-    g_special[i] = g_special[i]+b_tilde*g_special[i-1];
+    g_special[i] = g_special[i]+( (double) i/(i+1))*g_special[i-1];
   }
 
   //Does the same as problem 7a but with a slithly different algorithm
   double v_special[n-1];
-  double multi = 1.0*(n-2)/(n-1);
-  v_special[n-2] = multi * g_special[n-2];
-  std::cout << multi << "\n";
+  v_special[n-2] = ((double) (n-2)/(n-1)) * g_special[n-2];
   myfile.open("special_algo_" + std::to_string(n) + "_xes.txt");
   myfile << std::scientific << x[n] << " " << std::scientific << 0 << "\n";
   myfile << std::scientific << x[n-1] << " " << std::scientific << v_special[n-2] << "\n";
   for(int i=n-3; i>=0; i--){
-    double b_tilde = 1.0*(i+1)/(i+2);
-    v_special[i] = (g_special[i]  + v_special[i+1])*b_tilde;
+    v_special[i] = (g_special[i]  + v_special[i+1])*((double) (i+1)/(i+2));
 
     std::cout.precision(4);
     myfile << std::scientific << x[i+1] << " " << std::scientific << v_special[i] << "\n";
   }
   myfile << std::scientific << x[0] << " " << std::scientific << 0 << "\n";
   myfile.close();
+  auto t4 = std::chrono::high_resolution_clock::now();
+  double duration_seconds_special = std::chrono::duration<double>(t4 - t3).count();
+  std::cout << "The special algorithm takes " << duration_seconds_special << " seconds for n=" << n << "\n";
+
+
 
 
 
