@@ -6,6 +6,8 @@ import matplotlib
 
 matplotlib.rcParams.update({'font.size':14})
 
+# We use pandas to get easily readable and implementable imports from text files.
+
 df = pd.read_csv('data_with_10_xes.txt', sep=' ', header=None)
 u1 = df[1].to_numpy()
 
@@ -17,6 +19,9 @@ u3 = df[1].to_numpy()
 
 df = pd.read_csv('data_with_10000_xes.txt', sep=' ', header=None)
 u4 = df[1].to_numpy()
+
+df = pd.read_csv('data_with_100000_xes.txt', sep=' ', header=None)
+u5 = df[1].to_numpy()
 
 df = pd.read_csv('approx_with_10_xes.txt', sep=' ', header=None)
 x1 = np.flip(df[0].to_numpy())
@@ -34,10 +39,18 @@ df = pd.read_csv('approx_with_10000_xes.txt', sep=' ', header=None)
 x4 = np.flip(df[0].to_numpy())
 v4 = np.flip(df[1].to_numpy())
 
+df = pd.read_csv('approx_with_100000_xes.txt', sep=' ', header=None)
+x5 = np.flip(df[0].to_numpy())
+v5 = np.flip(df[1].to_numpy())
+
+
+# Defining a figure to show several plots in one figure.
 fig, ax = plt.subplots(2,2, figsize=(14,8))
 
 plt.suptitle('Poisson equation', fontsize=18)
 plt.subplots_adjust(top=0.9)
+
+# Plotting the exact solution alongside the approximated solution for different values of n
 
 ax[0][0].plot(x1,u1)
 ax[0][0].plot(x1,v1)
@@ -72,20 +85,26 @@ plt.savefig('poisson.pdf', dpi=900)
 plt.show()
 
 
-#Task 8a
+# Problem 8 a)
+
+# Defining a function to find the absolute logarithmic error.
 def absolute_log_error(u, v):
     abs_error = []
     for i in range(len(u)):
         abs_error.append(np.log10(abs(u[i]-v[i])))
     return abs_error
 
-#Task 8b
-def relative_log_error(u, v):
+# Problem 8 c)
+# Defining a function to find the relative logarithmic error.
+def relative_error(u, v):
     rel_error = []
     for i in range(len(u)):
-        rel_error.append(np.log10(abs((u[i]-v[i])/u[i])))
+        rel_error.append(abs((u[i]-v[i])/u[i]))
     return rel_error
 
+
+
+# Makes a figure and plots the two errors for all chosen values of n.
 
 fig, ax = plt.subplots(2,1, figsize=(12,8))
 
@@ -101,11 +120,10 @@ ax[0].set_xlabel('x')
 ax[0].set_ylabel('Log Error')
 ax[0].legend()
 
-
-ax[1].plot(x1,relative_log_error(u1,v1), label='n = 10')
-ax[1].plot(x2,relative_log_error(u2,v2), label='n = 100')
-ax[1].plot(x3,relative_log_error(u3,v3), label='n = 1000')
-ax[1].plot(x4,relative_log_error(u4,v4), label='n = 10000')
+ax[1].plot(x1,np.log10(relative_error(u1,v1)), label='n = 10')
+ax[1].plot(x2,np.log10(relative_error(u2,v2)), label='n = 100')
+ax[1].plot(x3,np.log10(relative_error(u3,v3)), label='n = 1000')
+ax[1].plot(x4,np.log10(relative_error(u4,v4)), label='n = 10000')
 ax[1].grid()
 ax[1].set_title('Relative error')
 ax[1].set_xlabel('x')
@@ -116,9 +134,24 @@ fig.tight_layout()
 plt.savefig('error.pdf', dpi=900)
 plt.show()
 
+# Problem 8 c)
 
+# When trying to run the cpp program for n higher than n=10^5, we get a memory error.
+# Thus we only show here the maximum non-NaN relative logarithmic error for the five chosen values of n. The first and last point is
+# Disregarded as the error is 0 for all n.
+max_rel_error = [np.nanmax(relative_error(u1,v1)[1:-1]),np.nanmax(relative_error(u2,v2)[1:-1]), \
+np.nanmax(relative_error(u3,v3)[1:-1]), np.nanmax(relative_error(u4,v4)[1:-1]), np.nanmax(relative_error(u5,v5)[1:-1])]
 
-#Problem 10 plots
+# Pandas for style
+df = pd.DataFrame({'n=10':[max_rel_error[0]], 'n=100':[max_rel_error[1]], 'n=1000':[max_rel_error[2]], \
+'n=10000':[max_rel_error[3]], 'n=100000':[max_rel_error[4]]}, index=['Max relative error'])
+df.rename_axis('n', axis='columns')
+
+print(df)
+
+# Problem 10 plots
+
+# Importing the text files using pandas, and finding mean values with np.mean
 
 df = pd.read_csv('time10n.txt', sep=' ', header=None)
 gen10 = df[0].to_numpy()
@@ -145,10 +178,14 @@ gen100000 = df[0].to_numpy()
 spe100000 = df[1].to_numpy()
 mean100000 = [np.mean(gen100000),np.mean(spe100000)]
 
-
-it = np.linspace(0,50, 50)
+# Defining a function to find a linear regression and plot the calculation time for
+# both the general and special case for a given n value. For every time the cpp program is
+# run, more calcluation time is added to the text files, thus the plots and results will be more
+# and more accurate for each run. As a starter the cpp program was run 50 times for each of the
+# 5 n-values. We were not able to run it for n=10^6, as we got a memory error. If
 
 def plotting_times(gen,spe, n):
+    it = np.linspace(0,len(gen), len(gen))
     ratio = gen/spe
     coef = np.polyfit(it,ratio,1)
     poly1d_fn = np.poly1d(coef)
