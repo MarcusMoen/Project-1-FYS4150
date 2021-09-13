@@ -6,4 +6,4 @@ The collaborators are Marcus Moen and Thorstein Skaug
 
 Notes on running the programs:
 
-1. The last part of the main cpp file is commented out. This is because it would append further unwanted values to the text files for calculation times. If you want to run it, make sure to remove the text lines added to the time(n)n.txt file you write to.
+1. The last part of the main cpp file is commented out. This is because it would append further values to the text files for calculation times. If you want to run it, please note that the plots will change somewhat from what you see in the report.
