@@ -43,6 +43,14 @@ df = pd.read_csv('approx_with_100000_xes.txt', sep=' ', header=None)
 x5 = np.flip(df[0].to_numpy())
 v5 = np.flip(df[1].to_numpy())
 
+plt.plot(x5,u5, label='Exact solution')
+plt.grid()
+plt.legend()
+plt.xlabel('x')
+plt.ylabel('u(x)')
+plt.title('Exact Poisson equation')
+plt.savefig('Poission_exact.pdf', dpi=900)
+plt.show()
 
 # Defining a figure to show several plots in one figure.
 fig, ax = plt.subplots(2,2, figsize=(14,8))
@@ -182,7 +190,7 @@ mean100000 = [np.mean(gen100000),np.mean(spe100000)]
 # both the general and special case for a given n value. For every time the cpp program is
 # run, more calcluation time is added to the text files, thus the plots and results will be more
 # and more accurate for each run. As a starter the cpp program was run 50 times for each of the
-# 5 n-values. We were not able to run it for n=10^6, as we got a memory error. If
+# 5 n-values. We were not able to run it for n=10^6, as we got a memory error.
 
 def plotting_times(gen,spe, n):
     it = np.linspace(0,len(gen), len(gen))
