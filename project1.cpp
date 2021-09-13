@@ -11,13 +11,13 @@ int main()
 {
 
   // Problem 2:
-  int n = 100000; //The number of steps
+  int n = 10000; //The number of steps
   double k = 0.0;
   double step = 1./n; //Step length
   double x[n+1]; //Storing the x-values
   double u[n+1]; //Storing the true values of u in the x-points
   std::ofstream myfile;
-  myfile.open("data.txt");
+  myfile.open("data_with_" + std::to_string(n) + "_xes.txt");
 
   //Add all the values to the vectors x and u.
   for(int i = 0; i <= n; i++){
