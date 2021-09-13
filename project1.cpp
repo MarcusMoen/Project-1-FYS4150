@@ -11,7 +11,7 @@ int main()
 {
 
   // Problem 2:
-  int n = 10000; //The number of steps
+  int n = 100000; //The number of steps
   double k = 0.0;
   double step = 1./n; //Step length
   double x[n+1]; //Storing the x-values
@@ -99,10 +99,9 @@ int main()
   double duration_seconds_special = std::chrono::duration<double>(t4 - t3).count();
   std::cout << "The special algorithm takes " << duration_seconds_special << " seconds for n=" << n << "\n";
 
-
-
-
-
+  std::ofstream outfile;
+    outfile.open("time100000n.txt", std::ios_base::app); // append instead of overwrite
+    outfile << duration_seconds << ' ' << duration_seconds_special << ' ' << '\n';
 
   return 0;
 }
