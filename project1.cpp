@@ -100,8 +100,9 @@ int main()
 
 
 // The code below appends the calculation times to a text file. It is commented out, as running it will append further unwanted values
-// to the time text files. If you want to run it, make sure to remove what is appended to the time(n)n.txt file, or else
-// the plotting file will no work properly. 
+// to the time text files. If you want to run it, you are welcome, but remember that every time you run it, you add more data to the 
+// time text files, so you will no longer get the same plots as are given in the report. However, by running it more it will also improve its
+// accuracy. 
 
 /*
   std::ofstream outfile;
