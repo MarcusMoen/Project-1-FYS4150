@@ -66,17 +66,25 @@ plt.show()
 
 #Task 8a
 def absolute_log_error(u, v):
-    abs_error = []
-    for i in range(len(u)):
-        abs_error.append(math.log10(abs(u[i]-v[i])))
+    abs_error = [0]
+    for i in range(len(u)-2):
+        if u[i+1]-v[i+1] == 0:
+            abs_error.append(0)
+        else:
+            abs_error.append(math.log10(abs(u[i+1]-v[i+1])))
+    abs_error.append(0)
     return abs_error
 
 #Task 8b
 def relative_log_error(u, v):
-    abs_error = []
-    for i in range(len(u)):
-        abs_error.append(math.log10(abs((u[i]-v[i])/u[i])))
-    return abs_error
+    rel_error = [0]
+    for i in range(len(u)-2):
+        if u[i+1]-v[i+1] == 0:
+            rel_error.append(0)
+        else:
+            rel_error.append(math.log10(abs((u[i+1]-v[i+1])/u[i+1])))
+    rel_error.append(0)
+    return rel_error
 
 fig, ax = plt.subplots(2,1, figsize=(12,8))
 
