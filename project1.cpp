@@ -56,21 +56,21 @@ int main()
   }
 
   double v[n-1]; //Stores the approx solution
-  v[n-2] = g[n-2]/b_update[n-2]; 
+  v[n-2] = g[n-2]/b_update[n-2]; //Add the last element of v
   myfile.open("approx_with_" + std::to_string(n) + "_xes.txt");
-  myfile << std::scientific << x[n] << " " << std::scientific << 0 << "\n";
-  myfile << std::scientific << x[n-1] << " " << std::scientific << v[n-2] << "\n";
+  myfile << std::scientific << x[n] << " " << std::scientific << 0 << "\n"; //Write to file
+  myfile << std::scientific << x[n-1] << " " << std::scientific << v[n-2] << "\n"; //Write to file
 
   //Find all the approx solutions
   for(int i=n-3; i>=0; i--){
     v[i] = (g[i] - c[i]*v[i+1])/b_update[i];
     std::cout.precision(4);
-    myfile << std::scientific << x[i+1] << " " << std::scientific << v[i] << "\n";
+    myfile << std::scientific << x[i+1] << " " << std::scientific << v[i] << "\n"; //Write to file
   }
-  myfile << std::scientific << x[0] << " " << std::scientific << 0 << "\n";
+  myfile << std::scientific << x[0] << " " << std::scientific << 0 << "\n";//Write to file
   myfile.close();
   auto t2 = std::chrono::high_resolution_clock::now();
-  double duration_seconds = std::chrono::duration<double>(t2 - t1).count();
+  double duration_seconds = std::chrono::duration<double>(t2 - t1).count(); //Measure time
   std::cout << "The general algorithm takes " << duration_seconds << " seconds for n=" << n << "\n";
 
   //Problem 9c
@@ -84,18 +84,18 @@ int main()
   double v_special[n-1];
   v_special[n-2] = ((double) (n-2)/(n-1)) * g_special[n-2];
   myfile.open("special_algo_" + std::to_string(n) + "_xes.txt");
-  myfile << std::scientific << x[n] << " " << std::scientific << 0 << "\n";
-  myfile << std::scientific << x[n-1] << " " << std::scientific << v_special[n-2] << "\n";
+  myfile << std::scientific << x[n] << " " << std::scientific << 0 << "\n"; //Write to file
+  myfile << std::scientific << x[n-1] << " " << std::scientific << v_special[n-2] << "\n"; //Write to file
   for(int i=n-3; i>=0; i--){
     v_special[i] = (g_special[i]  + v_special[i+1])*((double) (i+1)/(i+2));
 
     std::cout.precision(4);
-    myfile << std::scientific << x[i+1] << " " << std::scientific << v_special[i] << "\n";
+    myfile << std::scientific << x[i+1] << " " << std::scientific << v_special[i] << "\n"; //Write to file
   }
-  myfile << std::scientific << x[0] << " " << std::scientific << 0 << "\n";
+  myfile << std::scientific << x[0] << " " << std::scientific << 0 << "\n"; //Write to file
   myfile.close();
   auto t4 = std::chrono::high_resolution_clock::now();
-  double duration_seconds_special = std::chrono::duration<double>(t4 - t3).count();
+  double duration_seconds_special = std::chrono::duration<double>(t4 - t3).count(); //Measure time
   std::cout << "The special algorithm takes " << duration_seconds_special << " seconds for n=" << n << "\n";
 
 
