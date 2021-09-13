@@ -74,7 +74,28 @@ int main()
 
 
   //Problem 9b
+  for(int i=1; i<=n-3; i++){
+    double b_tilde = 1.0*i/(i+1);
+    g_special[i] = g_special[i]+b_tilde*g_special[i-1];
+  }
 
+
+  double v_special[n-2];
+  double multi = 1.0*(n-2)/(n-1);
+  v_special[n-3] = multi * g_special[n-3];
+  std::cout << multi << "\n";
+  myfile.open("special_algo_" + std::to_string(n) + "_xes.txt");
+  myfile << std::scientific << x[n-1] << " " << std::scientific << 0 << "\n";
+  myfile << std::scientific << x[n-2] << " " << std::scientific << v_special[n-3] << "\n";
+  for(int i=n-4; i>=0; i--){
+    double b_tilde = 1.0*(i+1)/(i+2);
+    v_special[i] = (g_special[i]  + v_special[i+1])*b_tilde;
+
+    std::cout.precision(4);
+    myfile << std::scientific << x[i+1] << " " << std::scientific << v_special[i] << "\n";
+  }
+  myfile << std::scientific << x[0] << " " << std::scientific << 0 << "\n";
+  myfile.close();
 
 
 
