@@ -11,20 +11,20 @@ x = df[0].to_numpy()
 u = df[1].to_numpy()
 
 df = pd.read_csv('approx_with_10_xes.txt', sep=' ', header=None)
-x1 = df[0].to_numpy()
-v1 = df[1].to_numpy()
+x1 = np.flip(df[0].to_numpy())
+v1 = np.flip(df[1].to_numpy())
 
 df = pd.read_csv('approx_with_100_xes.txt', sep=' ', header=None)
-x2 = df[0].to_numpy()
-v2 = df[1].to_numpy()
+x2 = np.flip(df[0].to_numpy())
+v2 = np.flip(df[1].to_numpy())
 
 df = pd.read_csv('approx_with_1000_xes.txt', sep=' ', header=None)
-x3 = df[0].to_numpy()
-v3 = df[1].to_numpy()
+x3 = np.flip(df[0].to_numpy())
+v3 = np.flip(df[1].to_numpy())
 
 df = pd.read_csv('approx_with_1000_xes.txt', sep=' ', header=None)
-x4 = df[0].to_numpy()
-v4 = df[1].to_numpy()
+x4 = np.flip(df[0].to_numpy())
+v4 = np.flip(df[1].to_numpy())
 
 fig, ax = plt.subplots(2,2, figsize=(14,8))
 
