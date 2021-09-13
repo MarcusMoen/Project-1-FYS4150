@@ -99,7 +99,7 @@ int main()
   std::cout << "The special algorithm takes " << duration_seconds_special << " seconds for n=" << n << "\n";
 
 
-// The code below appends the calculation times to a text file. It is commented out, as running it will append further unwanted values
+// The code below appends the calculation times to a text file. It is commented out, as running it will append further values
 // to the time text files. If you want to run it, you are welcome, but remember that every time you run it, you add more data to the 
 // time text files, so you will no longer get the same plots as are given in the report. However, by running it more it will also improve its
 // accuracy. 
