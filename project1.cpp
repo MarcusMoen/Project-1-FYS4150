@@ -70,7 +70,7 @@ int main()
   myfile << std::scientific << x[0] << " " << std::scientific << 0 << "\n";
   myfile.close();
 
-  //Problem 9b
+  //Problem 9c
   //Update the g-values
   for(int i=1; i<=n-2; i++){
     double b_tilde = 1.0*i/(i+1);
