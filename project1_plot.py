@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 import matplotlib
-import math
+
 
 matplotlib.rcParams.update({'font.size':14})
 
@@ -33,7 +33,7 @@ v3 = np.flip(df[1].to_numpy())
 df = pd.read_csv('approx_with_10000_xes.txt', sep=' ', header=None)
 x4 = np.flip(df[0].to_numpy())
 v4 = np.flip(df[1].to_numpy())
-"""
+
 fig, ax = plt.subplots(2,2, figsize=(14,8))
 
 plt.suptitle('Poisson equation', fontsize=18)
@@ -70,7 +70,6 @@ ax[1][1].legend(['Real solution', 'Approximated solution \n with 10000 points'] 
 
 plt.savefig('poisson.pdf', dpi=900)
 plt.show()
-"""
 
 
 #Task 8a
@@ -119,9 +118,8 @@ plt.show()
 
 
 
-
 #Problem 10 plots
-"""
+
 df = pd.read_csv('time10n.txt', sep=' ', header=None)
 gen10 = df[0].to_numpy()
 spe10 = df[1].to_numpy()
@@ -146,31 +144,7 @@ df = pd.read_csv('time100000n.txt', sep=' ', header=None)
 gen100000 = df[0].to_numpy()
 spe100000 = df[1].to_numpy()
 mean100000 = [np.mean(gen100000),np.mean(spe100000)]
-"""
-"""
-ns = [10,100,1000,10000,100000]
 
-mean_gen = [mean10[0],mean100[0],mean1000[0],mean10000[0],mean100000[0]]
-mean_spe = [mean10[1],mean100[1],mean1000[1],mean10000[1],mean100000[1]]
-
-fig, ax = plt.subplots(2,1,figsize=(14,8))
-plt.suptitle('Calculation times')
-ax[0].plot(ns,mean_gen, '-b', label='General solution')
-ax[0].set_xlabel('Run number')
-ax[0].set_ylabel('Time [s]')
-ax[0].plot(ns,mean_spe, '-r', label='Special solution')
-ax[0].legend()
-
-ax[1].plot(it,gen/spe,'-b',label='Ratio')
-ax[1].plot(it,poly1d_fn(it),'--r',label='Linear fit')
-ax[1].set_xlabel('Run number')
-ax[1].set_ylabel('Ratio')
-ax[1].legend()
-
-plt.savefig('mean_times.pdf',dpi=900)
-plt.show()
-"""
-"""
 
 it = np.linspace(0,50, 50)
 
@@ -191,7 +165,7 @@ def plotting_times(gen,spe, n):
     ax[1].plot(it,gen/spe,'-b',label='Ratio')
     ax[1].plot(it,poly1d_fn(it),'--r',label='Linear fit, mean ratio = '+str(np.round(np.mean(gen/spe),3)))
     ax[1].set_xlabel('Run number')
-    ax[1].set_ylabel('Ratio')
+    ax[1].set_ylabel('General/Special')
     ax[1].legend()
 
     plt.savefig('time'+str(n)+'.pdf', dpi=900)
@@ -202,5 +176,3 @@ plotting_times(gen100,spe100,100)
 plotting_times(gen1000,spe1000,1000)
 plotting_times(gen10000,spe10000,10000)
 plotting_times(gen100000,spe100000,100000)
-
-"""

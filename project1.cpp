@@ -11,7 +11,7 @@ int main()
 {
 
   // Problem 2:
-  int n = 1000000; //The number of steps
+  int n = 100; //The number of steps
   double k = 0.0;
   double step = 1./n; //Step length
   double x[n+1]; //Storing the x-values
@@ -54,7 +54,6 @@ int main()
       b_update[i] = b[i] - (a[i]/b_update[i-1])*c[i];
       g[i] = g[i]-(a[i]/b_update[i-1])*g[i-1];
   }
-
 
   double v[n-1]; //Stores the approx solution
   v[n-2] = g[n-2]/b_update[n-2];
@@ -99,13 +98,17 @@ int main()
   double duration_seconds_special = std::chrono::duration<double>(t4 - t3).count();
   std::cout << "The special algorithm takes " << duration_seconds_special << " seconds for n=" << n << "\n";
 
+
+// The code below appends the calculation times to a text file. It is commented out, as running it will append further unwanted values
+// to the time text files. If you want to run it, make sure to remove what is appended to the time(n)n.txt file, or else
+// the plotting file will no work properly. 
+
+/*
   std::ofstream outfile;
-    outfile.open("time1e6n.txt", std::ios_base::app); // append instead of overwrite
+    outfile.open("time"+std::to_string(n)+"n.txt", std::ios_base::app);
     outfile << duration_seconds << ' ' << duration_seconds_special << ' ' << '\n';
+*/
+
 
   return 0;
 }
-
-
-
-// reneaas
