@@ -6,4 +6,5 @@ The collaborators are Marcus Moen and Thorstein Skaug
 
 Notes on running the programs:
 
-1. The last part of the main cpp file is commented out. This is because it would append further values to the text files for calculation times. If you want to run it, please note that the plots will change somewhat from what you see in the report.
+1. Run project1.cpp first, then run project1_plot.py.
+2. The last part of the main cpp file is commented out. This is because it would append further values to the text files for calculation times. If you want to run it, please note that the plots will change somewhat from what you see in the report.
