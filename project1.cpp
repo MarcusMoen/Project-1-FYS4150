@@ -21,9 +21,9 @@ int main()
 
   //Add all the values to the vectors x and u.
   for(int i = 0; i <= n; i++){
-    x[i] = k;
-    k += step;
-    u[i] = 1-(1-exp(-10))*x[i]-exp(-10*x[i]);
+    x[i] = k; //Add each k value to x
+    k += step; //Add a step length
+    u[i] = 1-(1-exp(-10))*x[i]-exp(-10*x[i]); //The true values of u
     std::cout.precision(4);
     myfile << std::scientific << x[i] << " " << std::scientific << u[i] << "\n";
   }
@@ -41,9 +41,9 @@ int main()
   for(int i=0; i<=n-2; i++){
     g[i] = 100*exp(-10*x[i+1])*pow(1./n,2);
     g_special[i] = 100*exp(-10*x[i+1])*pow(1./n,2);
-    a[i] = -1;
-    b[i] = 2;
-    c[i] = -1;
+    a[i] = -1; //Add the sub-diagonal elements
+    b[i] = 2; //Add the main-diagonal elements
+    c[i] = -1; //Add the super-diagonal elements
   }
 
   auto t1 = std::chrono::high_resolution_clock::now();
@@ -51,12 +51,12 @@ int main()
   b_update[0] = b[0];
   //Update the main-diagonal values and the g-values
   for(int i=1; i<=n-2; i++){
-      b_update[i] = b[i] - (a[i]/b_update[i-1])*c[i];
-      g[i] = g[i]-(a[i]/b_update[i-1])*g[i-1];
+      b_update[i] = b[i] - (a[i]/b_update[i-1])*c[i]; //Update the main diagonal elements
+      g[i] = g[i]-(a[i]/b_update[i-1])*g[i-1]; //Update g-values
   }
 
   double v[n-1]; //Stores the approx solution
-  v[n-2] = g[n-2]/b_update[n-2];
+  v[n-2] = g[n-2]/b_update[n-2]; 
   myfile.open("approx_with_" + std::to_string(n) + "_xes.txt");
   myfile << std::scientific << x[n] << " " << std::scientific << 0 << "\n";
   myfile << std::scientific << x[n-1] << " " << std::scientific << v[n-2] << "\n";
